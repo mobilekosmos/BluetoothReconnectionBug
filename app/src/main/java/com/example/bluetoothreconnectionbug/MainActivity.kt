@@ -40,11 +40,16 @@ class MainActivity : ComponentActivity() {
 
     private var connectionState by mutableStateOf<ConnectionState>(ConnectionState.Idle)
     private var targetDeviceAddress: String? = null
+    private lateinit var bluetoothLe: BluetoothLe
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        // If you start the app while Bluetooth is off, then toggle Bluetooth ON,
+        //  and reopen the app, this object will be reused to start scanning, but nothing will happen.
+        bluetoothLe = BluetoothLe(context = applicationContext)
 
         setContent {
             BluetoothReconnectionBugTheme {
@@ -100,7 +105,6 @@ class MainActivity : ComponentActivity() {
                 manufacturerId = 1529,
             )
 
-            val bluetoothLe = BluetoothLe(context = applicationContext)
             updateState(ConnectionState.Scanning)
 
             bluetoothLe
