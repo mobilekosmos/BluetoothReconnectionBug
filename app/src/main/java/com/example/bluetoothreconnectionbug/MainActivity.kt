@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
 
         // When using State.RESUMED, if while the app is open, you toggle Bluetooth off and on,
         //  the app will enter the PAUSED state in case of Samsung devices where a bottom sheet
-        //  type of screen is overlayed on top of the app. Thus the lib will try to stop a connection
+        //  type of screen is overlaid on top of the app. Thus the lib will try to stop a connection
         //  that was already stopped when toggling Bluetooth off, leading to the DeadObjectException.
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
